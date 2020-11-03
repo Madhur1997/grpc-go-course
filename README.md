@@ -1,1 +1,1 @@
-# grpc-go-course
+# Few applications built while doing the grpc-go-course
