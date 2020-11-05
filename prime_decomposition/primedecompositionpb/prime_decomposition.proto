@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package primedecompositionpb;
+option go_package = "primedecompositionpb";
+
+message ReqNumber {
+	int32 num = 1;
+}
+
+message PrimeFactor {
+	int32 num = 1;
+}
+
+service PrimeDecomposition {
+	rpc getPrimeFactors(ReqNumber) returns (stream PrimeFactor);
+}
