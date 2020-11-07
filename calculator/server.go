@@ -43,6 +43,30 @@ func (s *server) Avg(stream calculatorpb.Calculator_AvgServer) error {
 	return nil
 }
 
+func (s *server) Max(stream calculatorpb.Calculator_MaxServer) error {
+	log.Printf("Max function was invoked")
+
+	prevMax := int32(0)
+	for {
+		reqNum, err := stream.Recv()
+		if err == io.EOF {
+			return nil
+		}
+
+		if err != nil {
+			log.Fatalf("received error while trying to receive from the stream: %v", err)
+		}
+
+		if reqNum.GetNum() > prevMax {
+			prevMax = reqNum.GetNum()
+			err := stream.Send(&calculatorpb.Result{Res: prevMax, })
+			if err != nil {
+				log.Fatalf("error while sending to the stream: v", err)
+			}
+		}
+	}
+}
+
 func main() {
 	fmt.Println("Hello from Calculator service")
 

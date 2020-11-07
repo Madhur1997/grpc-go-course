@@ -21,4 +21,6 @@ service Calculator {
 	rpc Add(Operands) returns (Result) {};
 	// Client streaming
 	rpc Avg(stream ReqNum) returns (Result) {};
+	// BiDi streaming
+	rpc Max(stream ReqNum) returns (stream Result) {};
 }
