@@ -9,10 +9,16 @@ message Operands {
 }
 
 message Result {
-	int32 sum = 1;
+	int32 res = 1;
+}
+
+message ReqNum {
+	int32 num = 1;
 }
 
 service Calculator {
 	// Unary
 	rpc Add(Operands) returns (Result) {};
+	// Client streaming
+	rpc Avg(stream ReqNum) returns (Result) {};
 }

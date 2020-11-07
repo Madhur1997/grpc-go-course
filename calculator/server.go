@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"net"
 
@@ -17,8 +18,29 @@ func (s *server) Add(ctx context.Context, operands *calculatorpb.Operands) (*cal
 	first_number := operands.GetFirstNumber()
 	second_number := operands.GetSecondNumber()
 
-	res := &calculatorpb.Result{ Sum: first_number + second_number, }
+	res := &calculatorpb.Result{ Res: first_number + second_number, }
 	return res, nil
+}
+
+func (s *server) Avg(stream calculatorpb.Calculator_AvgServer) error {
+	log.Printf("Avg function was invoked")
+
+	sum := int32(0)
+	count := int32(0)
+	for {
+		reqNum, err := stream.Recv()
+		if err == io.EOF {
+			avg := sum/count
+			return stream.SendAndClose(&calculatorpb.Result{ Res: avg, })
+		}
+		if err != nil {
+			log.Fatalf("received error while trying to receive from the stream: %v", err)
+		}
+		addResult, err := s.Add(context.Background(), &calculatorpb.Operands{FirstNumber: sum, SecondNumber: reqNum.GetNum(), })
+		sum = addResult.GetRes()
+		count++
+	}
+	return nil
 }
 
 func main() {
