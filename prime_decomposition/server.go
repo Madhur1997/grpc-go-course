@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/grpc-go-course/prime_decomposition/primedecompositionpb"
+	"grpc-go-course/prime_decomposition/primedecompositionpb"
 )
 
 type server struct {

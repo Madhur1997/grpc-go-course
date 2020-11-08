@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/grpc-go-course/prime_decomposition/primedecompositionpb"
+	"grpc-go-course/prime_decomposition/primedecompositionpb"
 
 	"google.golang.org/grpc"
 )

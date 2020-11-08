@@ -9,7 +9,7 @@ import (
 
 	"google.golang.org/grpc"
 	
-	"github.com/grpc-go-course/calculator/calculatorpb"
+	"grpc-go-course/calculator/calculatorpb"
 )
 
 func main() {
