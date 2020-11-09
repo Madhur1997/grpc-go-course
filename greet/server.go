@@ -89,9 +89,7 @@ func main() {
 
 	// Enable reflection on Greet service
 	reflection.Register(s)
-	
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
-
 }
